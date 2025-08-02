@@ -1,0 +1,40 @@
+# Ignore build results
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Visual Studio settings
+.vs/
+
+# Ignore Rider files
+.idea/
+
+# Ignore logs
+*.log
+
+# Ignore EF Core Migrations metadata
+_Migrations/
+
+# Ignore database files
+*.mdf
+*.ldf
+
+# Ignore local secrets
+secrets.json
+
+# Ignore coverage results
+TestResults/
+coverage/
+
+# Ignore npm and yarn dependencies if you use JS in solution
+node_modules/
+yarn.lock
+package-lock.json
+
+# Ignore environment config
+.env
