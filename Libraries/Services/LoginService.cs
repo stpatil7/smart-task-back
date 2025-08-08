@@ -79,9 +79,9 @@ namespace Libraries.Services
                 signingCredentials: creds
             );
 
-            string writeToken = new JwtSecurityTokenHandler().WriteToken(token);
+            string writtenToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-            string encryptedToken = Utilities.Encrypt(writeToken, _jwtEncryptionKey);
+            string encryptedToken = Utilities.Encrypt(writtenToken, _jwtEncryptionKey);
 
             return new LoginResponseDto
             {
