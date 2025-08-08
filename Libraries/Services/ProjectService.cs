@@ -36,7 +36,7 @@ namespace Application.Services
 
         public async Task<ProjectList> GetProjects(ProjectRequest model)
         {
-            var query = _projectsRepository.GetAllAsync().Where(x => x.CreatedById == model.userId);
+            var query = _projectsRepository.GetAllAsync().Where(x => x.CreatedById == model.userId && x.DeletedAt == null);
 
             var projects = await query.Take(model.Take).Skip(model.Skip).ToListAsync();
 
@@ -63,7 +63,7 @@ namespace Application.Services
 
         public async Task<ProjectResponse> GetProjectById(int id)
         {
-            var project = await _projectsRepository.GetByIdAsync(id);
+            var project = await _projectsRepository.Find(x => x.Id == id && x.DeletedAt == null).FirstOrDefaultAsync();
 
             if (project == null)
                 return null;
@@ -80,6 +80,34 @@ namespace Application.Services
                 UpdatedAt = project.UpdatedAt,
                 DeletedAt = project.DeletedAt
             };
+        }
+
+        public async Task<bool> DeleteProject(int id)
+        {
+            var project = await _projectsRepository.Find(x => x.Id == id && x.DeletedAt == null).FirstOrDefaultAsync();
+            if (project == null) return false;
+
+            project.DeletedAt = DateTime.UtcNow;
+            _projectsRepository.UpdateAsync(project);
+            await _projectsRepository.SaveAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UpdateProject(int id, ProjectUpdateRequest model)
+        {
+            var project = await _projectsRepository.Find(x => x.Id == id).FirstOrDefaultAsync();
+            if (project == null) return false;
+
+            project.Name = model.Name;
+            project.Description = model.Description;
+            project.EndDate = model.EndDate;
+            project.UpdatedAt = DateTime.Now;
+
+            _projectsRepository.UpdateAsync(project);
+            await _projectsRepository.SaveAsync();
+
+            return true;
         }
 
     }

@@ -8,5 +8,7 @@ namespace Domain.Interfaces.ProjectCreate
         Task<int> CreateProject(ProjectCreateRequestModel model);
         Task<ProjectList> GetProjects(ProjectRequest model);
         Task<ProjectResponse> GetProjectById(int id);
+        Task<bool> DeleteProject(int id);
+        Task<bool> UpdateProject(int id, ProjectUpdateRequest model);
     }
 }

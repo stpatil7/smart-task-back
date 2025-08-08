@@ -17,8 +17,20 @@ namespace Microservice.Controllers
         {
             _projectService = projectService;
         }
+        [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> CreateProject([FromBody] ProjectCreateRequestModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        [HttpPost("/")]
+            var projectId = await _projectService.CreateProject(model);
+
+            return CreatedAtAction(nameof(GetProject), new { id = projectId }, projectId);
+        }
+
+        [HttpPost("list")]
         [ProducesResponseType(typeof(ProjectResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProjectList>> GetProjects([FromBody] ProjectRequest model)
@@ -31,7 +43,7 @@ namespace Microservice.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(ProjectResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProjectResponse>> GetProject(int id)
@@ -45,18 +57,38 @@ namespace Microservice.Controllers
             return Ok(project);
         }
 
-        [HttpPost("/CreateProject")]
-        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> CreateProject([FromBody] ProjectCreateRequestModel model)
+        public async Task<ActionResult<int>> UpdateProject(int id, [FromBody] ProjectUpdateRequest model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (id <= 0)
+                return BadRequest("Invalid project ID");
 
-            var projectId = await _projectService.CreateProject(model);
+            var status = await _projectService.UpdateProject(id, model);
 
-            return CreatedAtAction(nameof(GetProject), new { id = projectId }, projectId);
+            if (!status)
+                return NotFound();
+
+            return Ok(true);
         }
 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<bool>> DeleteProject(int id)
+        {
+            if (id <= 0)
+                return BadRequest("Invalid project ID");
+
+            var status = await _projectService.DeleteProject(id);
+
+            if (!status)
+                return NotFound();
+
+            return Ok(true);
+        }
     }
 }
