@@ -1,4 +1,4 @@
-﻿namespace Libraries.Interfaces
+﻿namespace Domain.Interfaces.Login
 {
     public interface IEmailTemplateRenderer
     {

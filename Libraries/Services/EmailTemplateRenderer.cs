@@ -1,4 +1,4 @@
-﻿using Libraries.Interfaces;
+﻿using Domain.Interfaces.Login;
 using RazorLight;
 
 namespace Libraries.Services

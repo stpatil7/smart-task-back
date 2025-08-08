@@ -1,5 +1,5 @@
-﻿using Domain.Dto;
-using Libraries.Interfaces;
+﻿using Domain.Dto.LoginDtos;
+using Domain.Interfaces.Login;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;

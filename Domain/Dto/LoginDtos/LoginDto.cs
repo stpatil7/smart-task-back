@@ -1,4 +1,4 @@
-﻿namespace Libraries.Models
+﻿namespace Domain.Dto.LoginDtos
 {
     public class LoginDto
     {

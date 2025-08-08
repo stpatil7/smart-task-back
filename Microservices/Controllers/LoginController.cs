@@ -1,6 +1,5 @@
-﻿using Domain.Dto;
-using Libraries.Interfaces;
-using Libraries.Models;
+﻿using Domain.Dto.LoginDtos;
+using Domain.Interfaces.Login;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservices.Controllers

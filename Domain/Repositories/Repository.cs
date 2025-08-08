@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using DataAccessLayer.DbContexts;
-using Libraries.Interfaces;
+using Domain.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Libraries.Repositories
@@ -27,6 +27,7 @@ namespace Libraries.Repositories
         {
             return _dbSet.Where(predicate).AsQueryable();
         }
+
 
         public async Task<T?> GetByIdAsync(object id)
         {

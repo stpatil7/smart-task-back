@@ -10,13 +10,13 @@ namespace Microservices.Middlewares
     {
         public readonly RequestDelegate _next;
         private readonly string? _jwtSecret;
-        private readonly string? _encryptionKey;
+        private readonly string? _jwtEncryptionKey;
 
         public JwtMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
             _jwtSecret = configuration["JwtSettings:Key"];
-            _encryptionKey = configuration["EncryptionKeys:DefaultKey"];
+            _jwtEncryptionKey = configuration["EncryptionKeys:JwtEncrypptionKey"];
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -25,7 +25,7 @@ namespace Microservices.Middlewares
 
             if (token != null)
             {
-                token = Utilities.Decrypt(token, _encryptionKey);
+                token = Utilities.Decrypt(token, _jwtEncryptionKey);
                 TokenVerification(context, token);
             }
             await _next(context);

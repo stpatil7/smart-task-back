@@ -1,7 +1,6 @@
-﻿using Domain.Dto;
-using Libraries.Models;
+﻿using Domain.Dto.LoginDtos;
 
-namespace Libraries.Interfaces
+namespace Domain.Interfaces.Login
 {
     public interface ILoginService
     {

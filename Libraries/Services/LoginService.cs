@@ -2,11 +2,10 @@
 using System.Security.Claims;
 using System.Text;
 using DataAccessLayer.Entities;
-using Domain.Dto;
-using Domain.Models;
+using Domain.Dto.LoginDtos;
+using Domain.Interfaces.Login;
+using Domain.Interfaces.Repository;
 using Libraries.Enums;
-using Libraries.Interfaces;
-using Libraries.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;

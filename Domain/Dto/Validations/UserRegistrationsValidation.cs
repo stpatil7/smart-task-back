@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Libraries.Models;
+﻿using Domain.Dto.LoginDtos;
+using FluentValidation;
 
 namespace Domain.Dto.Validations
 {

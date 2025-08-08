@@ -1,13 +1,12 @@
 using DataAccessLayer.DbContexts;
-using Domain.Dto;
+using Domain.Dto.LoginDtos;
 using Domain.Dto.Validations;
-using Domain.Models;
+using Domain.Interfaces.Login;
+using Domain.Interfaces.Repository;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Libraries.Interfaces;
 using Libraries.Repositories;
 using Libraries.Services;
-using Microservices.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,7 +56,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseMiddleware<JwtMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 

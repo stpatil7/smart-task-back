@@ -1,4 +1,4 @@
-﻿namespace Domain.Dto
+﻿namespace Domain.Dto.LoginDtos
 {
     public class LoginResponseDto
     {
