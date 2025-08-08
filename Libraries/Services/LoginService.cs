@@ -25,6 +25,7 @@ namespace Libraries.Services
         private readonly string? _otpSecurityKey;
         private readonly IMemoryCache _memoryCache;
         private readonly IEmailTemplateRenderer _emailTemplateRenderer;
+        private readonly string? _jwtEncryptionKey;
         public LoginService(IRepository<Users> usersRepository,
             IConfiguration configuration,
             IOptions<JwtSettingsDto> jwtSettings,
@@ -39,6 +40,7 @@ namespace Libraries.Services
             _otpSecurityKey = configuration["optKey"];
             _memoryCache = memoryCache;
             _emailTemplateRenderer = emailTemplateRenderer;
+            _jwtEncryptionKey = configuration["EncryptionKeys:JwtEncrypptionKey"];
         }
 
 
@@ -77,10 +79,13 @@ namespace Libraries.Services
                 signingCredentials: creds
             );
 
+            string writeToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+            string encryptedToken = Utilities.Encrypt(writeToken, _jwtEncryptionKey);
+
             return new LoginResponseDto
             {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-                ExpiresAt = expiryTime,
+                Token = encryptedToken,
                 Role = role
             };
         }
