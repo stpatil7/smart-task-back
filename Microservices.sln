@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices", "Microservices\Microservices.csproj", "{50E7A9A7-0521-41C4-BBAA-B42437B76A71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login", "Microservices\Login.csproj", "{50E7A9A7-0521-41C4-BBAA-B42437B76A71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "DataAccessLayer\Infrastructure.csproj", "{1C64D0C5-701D-4F3F-9594-05C647CFF173}"
 EndProject
