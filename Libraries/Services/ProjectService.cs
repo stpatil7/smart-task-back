@@ -53,9 +53,34 @@ namespace Application.Services
                     StartDate = items.StartDate,
                     EndDate = items.EndDate,
                     CreatedById = items.CreatedById,
+                    CreatedAt = items.CreatedAt,
+                    UpdatedAt = items.UpdatedAt,
+                    DeletedAt = items.DeletedAt
                 }).ToList()
             };
             return result;
         }
+
+        public async Task<ProjectResponse> GetProjectById(int id)
+        {
+            var project = await _projectsRepository.GetByIdAsync(id);
+
+            if (project == null)
+                return null;
+
+            return new ProjectResponse
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Description = project.Description,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                CreatedById = project.CreatedById,
+                CreatedAt = project.CreatedAt,
+                UpdatedAt = project.UpdatedAt,
+                DeletedAt = project.DeletedAt
+            };
+        }
+
     }
 }
