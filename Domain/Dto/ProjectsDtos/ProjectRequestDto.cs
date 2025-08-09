@@ -1,6 +1,6 @@
 ﻿namespace Domain.Dto.ProjectsDtos
 {
-    public class ProjectRequest
+    public class ProjectRequestDto
     {
         public int Skip { get; set; }
         public int Take { get; set; }

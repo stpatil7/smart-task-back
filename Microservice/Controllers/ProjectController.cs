@@ -20,7 +20,7 @@ namespace Microservice.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> CreateProject([FromBody] ProjectCreateRequestModel model)
+        public async Task<ActionResult<int>> CreateProject([FromBody] ProjectCreateRequestDto model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -31,9 +31,9 @@ namespace Microservice.Controllers
         }
 
         [HttpPost("list")]
-        [ProducesResponseType(typeof(ProjectResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProjectResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProjectList>> GetProjects([FromBody] ProjectRequest model)
+        public async Task<ActionResult<ProjectListDto>> GetProjects([FromBody] ProjectRequestDto model)
         {
             var result = await _projectService.GetProjects(model);
             if (result == null)
@@ -44,9 +44,9 @@ namespace Microservice.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ProjectResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProjectResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProjectResponse>> GetProject(int id)
+        public async Task<ActionResult<ProjectResponseDto>> GetProject(int id)
         {
             var project = await _projectService.GetProjectById(id);
             if (project == null)
@@ -61,7 +61,7 @@ namespace Microservice.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> UpdateProject(int id, [FromBody] ProjectUpdateRequest model)
+        public async Task<ActionResult<int>> UpdateProject(int id, [FromBody] ProjectUpdateRequestDto model)
         {
             if (id <= 0)
                 return BadRequest("Invalid project ID");

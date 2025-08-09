@@ -129,7 +129,7 @@ namespace Libraries.Services
             return "Otp Sent";
         }
 
-        public async Task<string> VerifyOtp(string otp)
+        public string VerifyOtp(string otp)
         {
             if (!_memoryCache.TryGetValue(_otpSecurityKey, out string? cachedOtp))
                 return "OTP expired or not found";

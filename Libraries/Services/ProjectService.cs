@@ -15,7 +15,7 @@ namespace Application.Services
             _projectsRepository = projectsRepository;
         }
 
-        public async Task<int> CreateProject(ProjectCreateRequestModel model)
+        public async Task<int> CreateProject(ProjectCreateRequestDto model)
         {
             Projects proj = new Projects();
 
@@ -34,7 +34,7 @@ namespace Application.Services
         }
 
 
-        public async Task<ProjectList> GetProjects(ProjectRequest model)
+        public async Task<ProjectListDto> GetProjects(ProjectRequestDto model)
         {
             var query = _projectsRepository.GetAllAsync().Where(x => x.CreatedById == model.userId && x.DeletedAt == null);
 
@@ -42,10 +42,10 @@ namespace Application.Services
 
             var count = await query.CountAsync();
 
-            var result = new ProjectList
+            var result = new ProjectListDto
             {
                 total = count,
-                projects = projects.Select(items => new ProjectResponse
+                projects = projects.Select(items => new ProjectResponseDto
                 {
                     Id = items.Id,
                     Name = items.Name,
@@ -61,14 +61,14 @@ namespace Application.Services
             return result;
         }
 
-        public async Task<ProjectResponse> GetProjectById(int id)
+        public async Task<ProjectResponseDto> GetProjectById(int id)
         {
             var project = await _projectsRepository.Find(x => x.Id == id && x.DeletedAt == null).FirstOrDefaultAsync();
 
             if (project == null)
                 return null;
 
-            return new ProjectResponse
+            return new ProjectResponseDto
             {
                 Id = project.Id,
                 Name = project.Name,
@@ -94,7 +94,7 @@ namespace Application.Services
             return true;
         }
 
-        public async Task<bool> UpdateProject(int id, ProjectUpdateRequest model)
+        public async Task<bool> UpdateProject(int id, ProjectUpdateRequestDto model)
         {
             var project = await _projectsRepository.Find(x => x.Id == id).FirstOrDefaultAsync();
             if (project == null) return false;

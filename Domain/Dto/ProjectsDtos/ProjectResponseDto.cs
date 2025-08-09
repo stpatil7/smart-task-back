@@ -1,6 +1,6 @@
 ﻿namespace Domain.Dto.ProjectCreateDtos
 {
-    public class ProjectResponse
+    public class ProjectResponseDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -2,9 +2,9 @@
 
 namespace Domain.Dto.ProjectsDtos
 {
-    public class ProjectList
+    public class ProjectListDto
     {
         public int total { get; set; }
-        public List<ProjectResponse>? projects { get; set; }
+        public List<ProjectResponseDto>? projects { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace Domain.Interfaces.Login
         Task<LoginResponseDto> Login(LoginDto model);
         Task<string> ForgotPassword(ForgotPasswordDto model);
         Task<string> ResetPassword(ResetPasswordDto model);
-        Task<string> VerifyOtp(string otp);
+        string VerifyOtp(string otp);
     }
 }

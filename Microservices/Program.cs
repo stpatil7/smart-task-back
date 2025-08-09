@@ -1,6 +1,6 @@
 using DataAccessLayer.DbContexts;
 using Domain.Dto.LoginDtos;
-using Domain.Dto.Validations;
+using Domain.Dto.Validations.LoginValidations;
 using Domain.Interfaces.Login;
 using Domain.Interfaces.Repository;
 using FluentValidation;

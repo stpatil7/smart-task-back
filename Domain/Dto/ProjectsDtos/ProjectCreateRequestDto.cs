@@ -1,6 +1,6 @@
 ﻿namespace Domain.Dto.ProjectCreateDtos
 {
-    public class ProjectCreateRequestModel
+    public class ProjectCreateRequestDto
     {
         public string Name { get; set; }
         public string Description { get; set; }
