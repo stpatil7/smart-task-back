@@ -91,7 +91,12 @@ namespace Libraries.Services
 
         public async Task<int> RegisterUserAsync(UserRegistrationsDto model)
         {
-            Users user = new Users();
+            var user = await _usersRepository.Find(x => x.Email == model.Email).FirstOrDefaultAsync();
+            if (user != null)
+                throw new InvalidOperationException("This user is already registered.");
+
+            user = new Users();
+
             user.Name = model.Name;
             user.Email = model.Email;
             user.PasswordHash = Utilities.Encrypt(model.Password, _encryptionKey);

@@ -15,9 +15,25 @@ namespace Microservices.Controllers
         }
 
         [HttpPost("/Register")]
-        public async Task<ActionResult<int>> RegisterUser([FromBody] UserRegistrationsDto model)
+        public async Task<ActionResult> RegisterUser([FromBody] UserRegistrationsDto model)
         {
-            return await _loginService.RegisterUserAsync(model);
+            try
+            {
+                var result = await _loginService.RegisterUserAsync(model);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred." });
+            }
         }
 
         [HttpPost("/Login")]

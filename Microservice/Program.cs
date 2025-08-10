@@ -1,6 +1,7 @@
 using Application.Services;
 using DataAccessLayer.DbContexts;
 using Domain.Interfaces.ProjectCreate;
+using Domain.Interfaces.ProjectTasks;
 using Domain.Interfaces.Repository;
 using FluentValidation.AspNetCore;
 using Libraries.Repositories;
@@ -50,6 +51,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IProjectTasksService, ProjectTasksService>();
 
 var app = builder.Build();
 

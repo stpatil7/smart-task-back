@@ -20,14 +20,26 @@ namespace Microservice.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> CreateProject([FromBody] ProjectCreateRequestDto model)
+        public async Task<ActionResult> CreateProject([FromBody] ProjectCreateRequestDto model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                var result = await _projectService.CreateProject(model);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred." });
+            }
 
-            var projectId = await _projectService.CreateProject(model);
-
-            return CreatedAtAction(nameof(GetProject), new { id = projectId }, projectId);
         }
 
         [HttpPost("list")]
@@ -48,13 +60,19 @@ namespace Microservice.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProjectResponseDto>> GetProject(int id)
         {
-            var project = await _projectService.GetProjectById(id);
-            if (project == null)
+            try
+            {
+                var project = await _projectService.GetProjectById(id);
+                return Ok(project);
+            }
+            catch (InvalidOperationException)
             {
                 return NotFound();
             }
-
-            return Ok(project);
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred." });
+            }
         }
 
         [HttpPut("{id}")]

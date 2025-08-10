@@ -10,7 +10,7 @@ namespace Libraries.Services
         public EmailTemplateRenderer()
         {
             var baseDir = AppContext.BaseDirectory;
-            var templatesRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "libraries", "Templates"));
+            var templatesRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "Application", "Templates"));
 
 
             _engine = new RazorLightEngineBuilder()

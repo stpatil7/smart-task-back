@@ -16,11 +16,11 @@ namespace Application.Services
 
         public async Task<int> ProjectAssign(ProjectAssignRequestDto model)
         {
-
-
             var projectMembers = await _projectTasksRepository.Find(x => x.ProjectId == model.ProjectId).FirstOrDefaultAsync();
-            if (projectMembers == null)
+            if (projectMembers != null)
                 throw new InvalidOperationException("This user is already assigned to the project.");
+
+            projectMembers = new ProjectMembers();
 
             projectMembers.ProjectId = model.ProjectId;
             projectMembers.RoleInProject = (int)model.RoleInProject;
@@ -33,5 +33,6 @@ namespace Application.Services
 
             return projectMembers.Id;
         }
+
     }
 }

@@ -1,11 +1,13 @@
 ﻿using Domain.Dto.ProjectTasks;
 using Domain.Interfaces.ProjectTasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class ProjectTasksController : ControllerBase
     {
         private readonly IProjectTasksService _projectTasksService;

@@ -17,7 +17,12 @@ namespace Application.Services
 
         public async Task<int> CreateProject(ProjectCreateRequestDto model)
         {
-            Projects proj = new Projects();
+            var proj = await _projectsRepository.Find(x => x.Name == model.Name).FirstOrDefaultAsync();
+
+            if (proj != null)
+                throw new InvalidOperationException("This project is already created.");
+
+            proj = new Projects();
 
             proj.Name = model.Name;
             proj.Description = model.Description;
@@ -66,7 +71,7 @@ namespace Application.Services
             var project = await _projectsRepository.Find(x => x.Id == id && x.DeletedAt == null).FirstOrDefaultAsync();
 
             if (project == null)
-                return null;
+                throw new InvalidOperationException("Project not found with id" + id);
 
             return new ProjectResponseDto
             {
