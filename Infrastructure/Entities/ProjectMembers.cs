@@ -15,7 +15,7 @@ namespace DataAccessLayer.Entities
         public int RoleInProject { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
         [ForeignKey("ProjectId")]
         public virtual Projects Projects { get; set; }
         [ForeignKey("UserId")]

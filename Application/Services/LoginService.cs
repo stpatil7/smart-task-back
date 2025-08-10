@@ -95,7 +95,7 @@ namespace Libraries.Services
             user.Name = model.Name;
             user.Email = model.Email;
             user.PasswordHash = Utilities.Encrypt(model.Password, _encryptionKey);
-            user.role = model.role;
+            user.role = (int)model.role;
             user.CreatedAt = DateTime.Now;
             user.UpdateAt = DateTime.Now;
 
