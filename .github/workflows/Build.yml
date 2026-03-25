@@ -16,8 +16,15 @@ jobs:
         uses: actions/setup-dotnet@v4
         with: 
           dotnet-version: '8.0.x'
+          cache: 'dotnet'
       - name: restore dependencies
         run: dotnet restore
 
       - name: dotnet build 
         run: dotnet build --no-restore --configuration Debug
+
+      - name: Upload Build
+        uses: actions/upload-artifact@v3.2.2
+        with:
+          name: dotnet-build
+          path: out/
