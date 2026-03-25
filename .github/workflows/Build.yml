@@ -1,0 +1,23 @@
+name: ".net build"
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-dotnet-app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v4
+        with: 
+          dotnet-version: '8.0.x'
+      - name: restore dependencies
+        run: dotnet restore
+
+      - name: dotnet build 
+        run: dotnet build --no-restore --configuration Debug
